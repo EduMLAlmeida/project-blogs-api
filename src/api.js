@@ -1,5 +1,6 @@
 const express = require('express');
 const loginController = require('./controllers/loginController');
+const userController = require('./controllers/userController');
 
 // ...
 
@@ -10,6 +11,8 @@ app.use(express.json());
 // ...
 
 app.post('/login', loginController.login);
+
+app.post('/user', userController.createUser);
 
 // app.use(loginController.validateToken);
 
