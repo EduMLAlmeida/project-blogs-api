@@ -1,15 +1,15 @@
-const authServices = require('../services/authServices');
-const jwtServices = require('../services/jwtServices');
+const loginService = require('../services/loginService');
+const jwtService = require('../services/jwtService');
 
-const authController = {
+const loginController = {
     login: async (req, res) => {
         const { email, password } = req.body;
 
-        const isValid = authServices.validateLogin(email, password);
+        const isValid = loginService.validateLogin(email, password);
 
         if (isValid.message) return res.status(400).json({ message: isValid.message });
 
-        const token = await authServices.login(email, password);
+        const token = await loginService.login(email, password);
 
         if (token.message) return res.status(400).json({ message: token.message });
 
@@ -18,10 +18,10 @@ const authController = {
     validateToken: async (req, res, next) => {
         const { authorization } = req.headers;
 
-        jwtServices.validateToken(authorization);
+        jwtService.validateToken(authorization);
 
         next();
     },
 };
 
-module.exports = authController;
+module.exports = loginController;

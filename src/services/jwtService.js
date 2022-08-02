@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 require('dotenv/config');
 
-const jwtServices = {
+const jwtService = {
     createToken: (data) => {
         const token = jwt.sign({ data }, process.env.JWT_SECRET);
         return token;
@@ -12,4 +12,4 @@ const jwtServices = {
     },
 };
 
-module.exports = jwtServices;
+module.exports = jwtService;

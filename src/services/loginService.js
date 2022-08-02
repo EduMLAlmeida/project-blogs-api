@@ -1,7 +1,7 @@
 const db = require('../database/models');
-const jwtServices = require('./jwtServices');
+const jwtService = require('./jwtService');
 
-const authServices = {
+const loginService = {
     validateLogin: (email, password) => {
         if (!email || !password) return { message: 'Some required fields are missing' };
 
@@ -14,15 +14,15 @@ const authServices = {
             return { message: 'Invalid fields' };
         }
 
-        const token = jwtServices.createToken(user);
+        const token = jwtService.createToken(user);
 
         return token;
     },
     validateToken: (token) => {
-        const data = jwtServices.validateToken(token);
+        const data = jwtService.validateToken(token);
 
         return data;
     },
 };
 
-module.exports = authServices;
+module.exports = loginService;

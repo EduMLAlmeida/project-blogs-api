@@ -1,5 +1,5 @@
 const express = require('express');
-const authController = require('./controllers/authController');
+const loginController = require('./controllers/loginController');
 
 // ...
 
@@ -9,9 +9,9 @@ app.use(express.json());
 
 // ...
 
-app.post('/login', authController.login);
+app.post('/login', loginController.login);
 
-// app.use(authController.validateToken);
+// app.use(loginController.validateToken);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
