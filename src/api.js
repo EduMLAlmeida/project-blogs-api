@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.post('/login', authController.login);
 
-app.use(authController.validateToken);
+// app.use(authController.validateToken);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`

@@ -7,15 +7,8 @@ const jwtServices = {
         return token;
     },
     validateToken: (token) => {
-        try {
-            const data = jwt.verify(token, process.env.JWT_SECRET);
-            return data;
-        } catch (e) {
-            // const error = new Error('Token inválido');
-            // error.name = 'UnauthorizedError';
-            // throw error;
-            return { message: 'error' };
-        }
+        const data = jwt.verify(token, process.env.JWT_SECRET);
+        return data;
     },
 };
 

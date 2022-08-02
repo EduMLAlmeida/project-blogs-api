@@ -2,14 +2,16 @@ const db = require('../database/models');
 const jwtServices = require('./jwtServices');
 
 const authServices = {
+    validateLogin: (email, password) => {
+        if (!email || !password) return { message: 'Some required fields are missing' };
+
+        return {};
+    },
     login: async (email, password) => {
         const user = await db.User.findOne({ where: { email } });
 
         if (!user || user.password !== password) {
-            // const error = new Error('Usuário não existe ou senha inválida.');
-            // error.name = 'UnauthorizedError';
-            // throw error;
-            return { message: 'error' };
+            return { message: 'Invalid fields' };
         }
 
         const token = jwtServices.createToken(user);

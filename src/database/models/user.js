@@ -10,6 +10,11 @@ const User = (sequelize, DataTypes) => {
         email: DataTypes.STRING,
         password: DataTypes.STRING,
         image: DataTypes.STRING,
+    },
+    {
+        timestamps: false,
+        // underscored: true, (o seeder do projeto está em cammelCase)
+        tableName: 'Users',
     })
     return User;
 };

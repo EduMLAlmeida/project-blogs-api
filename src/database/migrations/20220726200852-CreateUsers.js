@@ -12,6 +12,7 @@ module.exports = {
       displayName: {
         type: Sequelize.STRING,
         allowNull: false,
+        // field: 'display_name', (o seeder do projeto está em cammelCase)
       },
       email: {
         type: Sequelize.STRING,
