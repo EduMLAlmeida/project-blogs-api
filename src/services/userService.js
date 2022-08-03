@@ -41,8 +41,13 @@ const userService = {
         const users = await db.User.findAll({
             attributes: { exclude: ['password'] },
         });
-        console.log('users', users);
         return users;
+    },
+    getUserById: async (id) => {
+        const user = await db.User.findByPk(id, {
+            attributes: { exclude: ['password'] },
+        });
+        return user;
     },
 };
 
