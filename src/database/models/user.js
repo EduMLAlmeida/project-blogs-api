@@ -15,7 +15,10 @@ const User = (sequelize, DataTypes) => {
         timestamps: false,
         // underscored: true, (o seeder do projeto está em cammelCase)
         tableName: 'Users',
-    })
+    });
+    User.associate = (db) => {
+        User.hasMany(db.BlogPost, { as: 'BlogPosts', foreignKey: 'userId' });
+    }
     return User;
 };
 
