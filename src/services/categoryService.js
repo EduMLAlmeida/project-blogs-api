@@ -11,6 +11,10 @@ const loginService = {
         }
         return {};
     },
+    getAllCategories: async () => {
+        const categories = await db.Category.findAll();
+        return categories;
+    },
 };
 
 module.exports = loginService;
