@@ -1,5 +1,4 @@
 const loginService = require('../services/loginService');
-const jwtService = require('../services/jwtService');
 
 const loginController = {
     login: async (req, res) => {
@@ -18,7 +17,9 @@ const loginController = {
     validateToken: async (req, res, next) => {
         const { authorization } = req.headers;
 
-        jwtService.validateToken(authorization);
+        const validation = loginService.validateToken(authorization);
+
+        if (validation.message) return res.status(401).json({ message: validation.message });
 
         next();
     },

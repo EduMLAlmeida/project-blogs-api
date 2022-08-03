@@ -37,6 +37,13 @@ const userService = {
     createUser: async (displayName, email, password, image) => {
         await db.User.create({ displayName, email, password, image });
     },
+    getAllUsers: async () => {
+        const users = await db.User.findAll({
+            attributes: { exclude: ['password'] },
+        });
+        console.log('users', users);
+        return users;
+    },
 };
 
 module.exports = userService;

@@ -19,6 +19,8 @@ const loginService = {
         return token;
     },
     validateToken: (token) => {
+        if (!token) return { message: 'Token not found' };
+        
         const data = jwtService.validateToken(token);
 
         return data;

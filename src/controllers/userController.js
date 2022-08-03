@@ -18,6 +18,10 @@ const userController = {
         const token = await loginService.login(email, password);
         return res.status(201).json({ token });
     },
+    getAllUsers: async (req, res) => {
+        const users = await userService.getAllUsers();
+        return res.status(200).json(users);
+    },
 };
 
 module.exports = userController;

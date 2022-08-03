@@ -6,9 +6,13 @@ const jwtService = {
         const token = jwt.sign({ data }, process.env.JWT_SECRET);
         return token;
     },
-    validateToken: (token) => {
-        const data = jwt.verify(token, process.env.JWT_SECRET);
-        return data;
+    validateToken: (token) => {        
+        try {
+            const data = jwt.verify(token, process.env.JWT_SECRET);
+            return data;
+        } catch (error) {
+            return { message: 'Expired or invalid token' };
+        }
     },
 };
 
