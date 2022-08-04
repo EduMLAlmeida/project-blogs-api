@@ -25,6 +25,21 @@ const postController = {
         if (!post) return res.status(404).json({ message: 'Post does not exist' });
         return res.status(200).json(post);
     },
+    updatePostById: async (req, res) => {
+        const { id } = req.params;
+        const { title, content } = req.body;
+        const { authorization } = req.headers;
+        const userValidation = await postService.validateUser(authorization, id);
+        if (userValidation.message) {
+            return res.status(401).json({ message: userValidation.message });
+        }
+        const fieldsValidation = postService.validateUpdateFields(title, content);
+        if (fieldsValidation.message) {
+            return res.status(400).json({ message: fieldsValidation.message });
+        }
+        const updatedpost = await postService.updatePost(id, title, content);
+        return res.status(200).json(updatedpost);
+    },
 };
 
 module.exports = postController;

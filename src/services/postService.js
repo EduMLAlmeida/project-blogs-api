@@ -61,7 +61,7 @@ const postService = {
         return posts;
     },
     getPostById: async (id) => {
-        const user = await db.BlogPost.findByPk(id, {
+        const post = await db.BlogPost.findByPk(id, {
             include: [{
                 model: db.User,
                 as: 'user',
@@ -71,8 +71,34 @@ const postService = {
                 as: 'categories',
             }],
         });
-        return user;
+        return post;
+    },
+    validateUser: async (token, postId) => {
+        const user = jwtService.validateToken(token);
+        const userId = user.data.id;
+        const post = await db.BlogPost.findByPk(postId);
+        console.log('userId ----------', userId);       
+        console.log('post ----------', post.dataValues.userId);
+        const test = userId === post.dataValues.userId;
+        console.log('test ----------', test); 
+        if (!test) {
+            console.log('entrou ----------');
+            return { message: 'Unauthorized user' };
+        }
+        return {};
+    },
+    validateUpdateFields: (title, content) => {
+        if (!title || !content) {
+            return { message: 'Some required fields are missing' };
+        }
+        return {};
+    },
+    updatePost: async (id, title, content) => {
+        console.log('id, title, content ----------', id, title, content); 
+        await db.BlogPost.update({ id, title, content }, { where: { id } });
+        const updatedpost = await postService.getPostById(id);
+        console.log('updatedpost ----------', updatedpost); 
+        return updatedpost;
     },
 };
-
 module.exports = postService;

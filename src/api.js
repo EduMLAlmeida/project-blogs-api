@@ -21,6 +21,7 @@ app.get('/categories', loginController.validateToken, categoryController.getAllC
 app.post('/post', loginController.validateToken, postController.createPost);
 app.get('/post', loginController.validateToken, postController.getAllPosts);
 app.get('/post/:id', loginController.validateToken, postController.getPostById);
+app.put('/post/:id', loginController.validateToken, postController.updatePostById);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
