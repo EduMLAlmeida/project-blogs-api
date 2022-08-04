@@ -60,6 +60,19 @@ const postService = {
         });
         return posts;
     },
+    getPostById: async (id) => {
+        const user = await db.BlogPost.findByPk(id, {
+            include: [{
+                model: db.User,
+                as: 'user',
+                attributes: { exclude: ['password'] },
+            }, {
+                model: db.Category,
+                as: 'categories',
+            }],
+        });
+        return user;
+    },
 };
 
 module.exports = postService;
