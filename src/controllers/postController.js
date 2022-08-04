@@ -15,6 +15,10 @@ const postController = {
         const post = await postService.createPost(title, content, categoryIds, authorization);
         return res.status(201).json(post);
     },
+    getAllPosts: async (req, res) => {
+        const posts = await postService.getAllPosts();
+        return res.status(200).json(posts);
+    },
 };
 
 module.exports = postController;

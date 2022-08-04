@@ -14,14 +14,12 @@ app.use(express.json());
 
 app.post('/login', loginController.login);
 app.post('/user', userController.createUser);
-
-// app.use(loginController.validateToken);
-
 app.get('/user', loginController.validateToken, userController.getAllUsers);
 app.get('/user/:id', loginController.validateToken, userController.getUserById);
 app.post('/categories', loginController.validateToken, categoryController.createCategory);
 app.get('/categories', loginController.validateToken, categoryController.getAllCategories);
 app.post('/post', loginController.validateToken, postController.createPost);
+app.get('/post', loginController.validateToken, postController.getAllPosts);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
