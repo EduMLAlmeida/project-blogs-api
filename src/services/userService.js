@@ -1,4 +1,5 @@
 const db = require('../database/models');
+const jwtService = require('./jwtService');
 
 const userService = {
     validateName: (displayName) => {
@@ -42,6 +43,18 @@ const userService = {
             attributes: { exclude: ['password'] },
         });
         return user;
+    },
+    deleteUser: async (token) => {
+        const tokenUser = jwtService.validateToken(token);
+        const { id } = tokenUser.data;
+        const posts = await db.BlogPost.findAll({ where: { userId: id } });
+        const postsIds = posts.map((post) => post.dataValues.id);
+        await postsIds.forEach(async (postId) => db.PostCategory.destroy(
+            { where: { postId } },
+            { truncate: true },
+        ));
+        await db.BlogPost.destroy({ where: { userId: id } }, { truncate: true });
+        await db.User.destroy({ where: { id } });
     },
 };
 

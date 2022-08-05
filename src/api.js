@@ -13,6 +13,7 @@ app.use(express.json());
 // ...
 
 app.post('/login', loginController.login);
+app.delete('/user/me', loginController.validateToken, userController.deleteUser);
 app.post('/user', userController.createUser);
 app.get('/user', loginController.validateToken, userController.getAllUsers);
 app.get('/user/:id', loginController.validateToken, userController.getUserById);

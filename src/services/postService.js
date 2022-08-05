@@ -103,8 +103,8 @@ const postService = {
     },
     deletePost: async (id) => {
         await db.PostCategory.destroy({ where: { postId: id } });
-        const updatedpost = await db.BlogPost.destroy({ where: { id } });
-        return updatedpost;
+        const deletedpost = await db.BlogPost.destroy({ where: { id } });
+        return deletedpost;
     },
 };
 module.exports = postService;
