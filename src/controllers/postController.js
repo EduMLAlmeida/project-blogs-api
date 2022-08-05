@@ -40,6 +40,20 @@ const postController = {
         const updatedpost = await postService.updatePost(id, title, content);
         return res.status(200).json(updatedpost);
     },
+    deletePostById: async (req, res) => {
+        const { id } = req.params;
+        const { authorization } = req.headers;
+        const postValidation = await postService.validatePost(id);
+        if (postValidation.message) {
+            return res.status(404).json({ message: postValidation.message });
+        }
+        const userValidation = await postService.validateUser(authorization, id);
+        if (userValidation.message) {
+            return res.status(401).json({ message: userValidation.message });
+        }
+        await postService.deletePost(id);
+        return res.status(204).end();
+    },
 };
 
 module.exports = postController;

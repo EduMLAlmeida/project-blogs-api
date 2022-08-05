@@ -22,6 +22,7 @@ app.post('/post', loginController.validateToken, postController.createPost);
 app.get('/post', loginController.validateToken, postController.getAllPosts);
 app.get('/post/:id', loginController.validateToken, postController.getPostById);
 app.put('/post/:id', loginController.validateToken, postController.updatePostById);
+app.delete('/post/:id', loginController.validateToken, postController.deletePostById);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`

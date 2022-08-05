@@ -77,12 +77,8 @@ const postService = {
         const user = jwtService.validateToken(token);
         const userId = user.data.id;
         const post = await db.BlogPost.findByPk(postId);
-        console.log('userId ----------', userId);       
-        console.log('post ----------', post.dataValues.userId);
         const test = userId === post.dataValues.userId;
-        console.log('test ----------', test); 
         if (!test) {
-            console.log('entrou ----------');
             return { message: 'Unauthorized user' };
         }
         return {};
@@ -94,10 +90,20 @@ const postService = {
         return {};
     },
     updatePost: async (id, title, content) => {
-        console.log('id, title, content ----------', id, title, content); 
         await db.BlogPost.update({ id, title, content }, { where: { id } });
         const updatedpost = await postService.getPostById(id);
-        console.log('updatedpost ----------', updatedpost); 
+        return updatedpost;
+    },
+    validatePost: async (id) => {
+        const post = await postService.getPostById(id);
+        if (!post) {
+            return { message: 'Post does not exist' };
+        }
+        return {};
+    },
+    deletePost: async (id) => {
+        await db.PostCategory.destroy({ where: { postId: id } });
+        const updatedpost = await db.BlogPost.destroy({ where: { id } });
         return updatedpost;
     },
 };
